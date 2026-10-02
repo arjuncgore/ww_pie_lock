@@ -1,41 +1,52 @@
 -- ==== VARS ====
 local waywall = require("waywall")
 
--- local cfg     = {
---     fast_reset = "MB5",
---     main_reset = "F6",
---     thin_res = { w = 350, h = 1440 },
---     text = {
---         enabled = true,
---         text = "FAST RESET MODE",
---         x = 10,
---         y = 10,
---         size = 5,
---         color = "#F5793A"
---     }
--- }
+local cfg = {
+    hotbar_keys = {
+        "1",
+        "2",
+        "3",
+        "4",
+        "G",
+        "C",
+        "T",
+        "F",
+        "R"
+    }
+    text_look = {
+        enabled = true,
+        x = 2560 - 100,
+        y = 1440 - 100,
+        size = 5,
+        color = "#F5793A",
+    }
+    toggle_key = "GRAVE",
+    locked_hook = nil,
+    unlocked_hook = nil,
+}
 
 local M       = {}
 -- ==== PLUG ====
 M.setup       = function(config, cfg)
     local text_obj = nil
 
-    local remaps_normal = {}
+    local locked_remaps = {}
     local remaps_fast = {}
     for key, val in pairs(config.input.remaps) do
-        remaps_normal[key] = val
-        remaps_fast[key] = val
+        locked_remaps[key] = val
+        unlocked_remaps[key] = val
     end
-    remaps_fast[cfg.fast_reset] = cfg.main_reset
-    local reset_enabled = false
 
-    local reset_mode = function()
-        waywall.set_remaps(remaps_fast)
-        reset_enabled = true
+    local lock_enabled = false
+    local locked = function()
+        waywall.set_remaps(locked_remaps)
+        lock_enabled = true
+        cfg.locked_hook
     end
-    local normal_mode = function()
-        waywall.set_remaps(remaps_normal)
-        reset_enabled = false
+    local unlocked = function()
+        waywall.set_remaps(unlocked_remaps)
+        lock_enabled = false
+        cfg.unlocked_hook
     end
 
 
