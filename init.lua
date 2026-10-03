@@ -8,8 +8,9 @@ local cfg     = {
         "3",
         "4",
     },
-    text_look = {
+    text = {
         enabled = true,
+        text = "change pie dir",
         x = 2560 - 100,
         y = 1440 - 100,
         size = 5,
@@ -33,22 +34,21 @@ M.setup       = function(config, cfg)
     end
 
     for k, v in ipairs(cfg.hotbar_keys) do
-        locked_remaps[v] = "F" .. 12 + k
-        unlocked_remaps[v] = k
+        locked_remaps[v] = "F" .. (12 + k)
     end
 
-    local lock_enabled = false
+    local lock_enabled = true
     waywall.set_remaps(locked_remaps)
 
     local locked = function()
         waywall.set_remaps(locked_remaps)
         lock_enabled = true
-        return cfg.locked_hook
+        if cfg.locked_hook then cfg.locked_hook() end
     end
     local unlocked = function()
         waywall.set_remaps(unlocked_remaps)
         lock_enabled = false
-        return cfg.unlocked_hook
+        if cfg.unlocked_hook then cfg.unlocked_hook() end
     end
 
     config.actions[cfg.toggle_key] = function()
