@@ -1,0 +1,88 @@
+# Pie Lock
+Toggle between changing your pie directory and changing your hotbar, with text indicator, and optional hook
+
+## Setup
+### Using [plug.waywall](https://github.com/its-saanvi/plug.waywall)
+```lua
+local cfg           = {
+    hotbar_keys = {
+        { typed = "1", number = "1", alternative = "Y" },
+        { typed = "2", number = "2", alternative = "J" },
+        { typed = "3", number = "3", alternative = "M" },
+        { typed = "4", number = "4", alternative = "N" },
+        { typed = "5", number = "5", alternative = "F13" },
+        { typed = "6", number = "6", alternative = "F14" },
+        { typed = "7", number = "7", alternative = "F15" },
+        { typed = "8", number = "8", alternative = "F16" },
+        { typed = "9", number = "9", alternative = "F17" },
+        { typed = "Z", number = "0", alternative = "U" },
+    },
+    text = {
+        enabled = true,
+        text = "unlocked",
+        x = 1920 - 300,
+        y = 1080 - 100,
+        size = 5,
+        color = "#F5793A",
+    },
+    toggle_key = "*-GRAVE",
+    locked_hook = nil,
+    unlocked_hook = nil,
+    remaps_table = config.input.remaps,
+}
+
+return {
+    url = "https://github.com/arjuncgore/ww_pie_lock",
+    config = function(config)
+        local pie_lock = require("pie_lock.init")
+
+        pie_lock.setup(config, cfg)
+        NORMAL_REMAPS = pie_lock.normal_remaps()
+    end,
+    name = "pie_lock",
+    update_on_load = true,
+    enabled = true
+}
+```
+### Otherwise
+#### Clone plugin to waywall config folder
+```bash
+git clone https://github.com/arjuncgore/ww_pie_lock ~/.config/waywall/pie_lock
+```
+
+#### Setup config in init.lua
+```lua
+-- rest of config
+local cfg           = {
+    hotbar_keys = {
+        { typed = "1", number = "1", alternative = "Y" },
+        { typed = "2", number = "2", alternative = "J" },
+        { typed = "3", number = "3", alternative = "M" },
+        { typed = "4", number = "4", alternative = "N" },
+        { typed = "5", number = "5", alternative = "F13" },
+        { typed = "6", number = "6", alternative = "F14" },
+        { typed = "7", number = "7", alternative = "F15" },
+        { typed = "8", number = "8", alternative = "F16" },
+        { typed = "9", number = "9", alternative = "F17" },
+        { typed = "Z", number = "0", alternative = "U" },
+    },
+    text = {
+        enabled = true,
+        text = "unlocked",
+        x = 1920 - 300,
+        y = 1080 - 100,
+        size = 5,
+        color = "#F5793A",
+    },
+    toggle_key = "*-GRAVE",
+    locked_hook = nil,
+    unlocked_hook = nil,
+    remaps_table = config.input.remaps,
+}
+
+local pie_lock = require("pie_lock.init")
+pie_lock.setup(config, cfg)
+NORMAL_REMAPS = pie_lock.normal_remaps()
+
+return config
+```
