@@ -3,11 +3,11 @@ local waywall       = require("waywall")
 
 local cfg           = {
     hotbar_keys = {
-        { typed = "1", number = "1" },
-        { typed = "2", number = "2" },
-        { typed = "3", number = "3" },
-        { typed = "4", number = "4" },
-        { typed = "Z", number = "0" },
+        { typed = "1", number = "1", alternative = "Y" },
+        { typed = "2", number = "2", alternative = "J" },
+        { typed = "3", number = "3", alternative = "M" },
+        { typed = "4", number = "4", alternative = "N" },
+        { typed = "Z", number = "0", alternative = "U" },
     },
     text = {
         enabled = true,
@@ -36,7 +36,7 @@ M.setup             = function(config, cfg)
     end
 
     for k, v in ipairs(cfg.hotbar_keys) do
-        locked_remaps[v.typed] = "F" .. (12 + k)
+        locked_remaps[v.typed] = v.alternative
         unlocked_remaps[v.typed] = v.number
     end
 
