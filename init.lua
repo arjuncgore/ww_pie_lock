@@ -1,12 +1,13 @@
 -- ==== VARS ====
 local waywall       = require("waywall")
 
--- local cfg     = {
+-- local cfg           = {
 --     hotbar_keys = {
---         "1",
---         "2",
---         "3",
---         "4",
+--         ["1"] = "1",
+--         ["2"] = "2",
+--         ["3"] = "3",
+--         ["4"] = "4",
+--         ["Z"] = "0",
 --     },
 --     text = {
 --         enabled = true,
@@ -19,7 +20,7 @@ local waywall       = require("waywall")
 --     toggle_key = "*-GRAVE",
 --     locked_hook = nil,
 --     unlocked_hook = nil,
---     remaps_table = ...
+--     remaps_table = {},
 -- }
 
 local M             = {}
@@ -35,7 +36,7 @@ M.setup             = function(config, cfg)
     end
 
     for k, v in ipairs(cfg.hotbar_keys) do
-        locked_remaps[v] = "F" .. (12 + k)
+        locked_remaps[k] = "F" .. (12 + v)
     end
 
     local lock_enabled = true
